@@ -4,8 +4,8 @@
 
 TEST(Task1, TestPrefixCurrenSize) {
     int NPREF = 3;
-    Textgen g = Textgen(NPREF, "Test1.txt");
-    map<Textgen::prefix, vector<string>> statetab = g.GetStateTab();
+    Textgen g(NPREF, "Test1.txt");
+    auto statetab = g.GetStateTab();
     for (auto prefix_suf : statetab) {
         EXPECT_EQ(NPREF, prefix_suf.first.size());
     }
@@ -14,15 +14,15 @@ TEST(Task1, TestPrefixCurrenSize) {
 
 TEST(Task2, TestPairPrefixSuffix) {
     int NPREF = 2;
-    Textgen g = Textgen(NPREF, "Test1.txt");
-    ifstream file("Test1.txt");
-    string text1 = "", str;
+    Textgen g(NPREF, "Test1.txt");
+    std::ifstream file("Test1.txt");
+    std::string text1 = "", str;
     if (file.is_open()) {
         while (getline(file, str)) {
             text1 += str + " ";
         }
     }
-    string text = "";
+    std::string text = "";
     bool previous_is_space = false;
     for (int i = 0; i < text1.length(); i++) {
         if (text1[i] != ' ') {
@@ -36,9 +36,9 @@ TEST(Task2, TestPairPrefixSuffix) {
         }
     }
     file.close();
-    map<Textgen::prefix, vector<string>> statetab = g.GetStateTab();
+    auto statetab = g.GetStateTab();
     for (auto prefix_suf : statetab) {
-        string pref = "";
+        std::string pref = "";
         for (int i = 0; i < NPREF; i++) {
             if (i == NPREF - 1) {
                 pref += prefix_suf.first[i];
@@ -46,8 +46,8 @@ TEST(Task2, TestPairPrefixSuffix) {
                 pref += prefix_suf.first[i] + " ";
             }
         }
-        for (string suf : prefix_suf.second) {
-            EXPECT_TRUE(text.find(pref+" "+suf) != string::npos);
+        for (std::string suf : prefix_suf.second) {
+            EXPECT_TRUE(text.find(pref+" "+suf) != std::string::npos);
         }
     }
 }
@@ -56,11 +56,11 @@ TEST(Task2, TestPairPrefixSuffix) {
 TEST(Task3, TestSingleSuffix) {
     int NPREF = 2;
     Textgen g = Textgen(NPREF, "Test1.txt");
-    Textgen::prefix pref1;
+    prefix pref1;
     pref1.push_back("am");
     pref1.push_back("glad");
     EXPECT_EQ(g.getSuffix(pref1), "to");
-    Textgen::prefix pref2;
+    prefix pref2;
     pref2.push_back("Hello,");
     pref2.push_back("friend,");
     EXPECT_EQ(g.getSuffix(pref2), "I");
@@ -69,22 +69,22 @@ TEST(Task3, TestSingleSuffix) {
 TEST(Task4, TestMultipleSuffix) {
     int NPREF = 2;
     Textgen g = Textgen(NPREF, "Test1.txt");
-    Textgen::prefix pref1;
+    prefix pref1;
     pref1.push_back("I");
     pref1.push_back("am");
-    string suf1 = g.getSuffix(pref1);
+    std::string suf1 = g.getSuffix(pref1);
     EXPECT_TRUE((suf1 == "glad") || (suf1 == "a") || (suf1 == "thinking"));
-    Textgen::prefix pref2;
+    prefix pref2;
     pref2.push_back("glad");
     pref2.push_back("to");
-    string suf2 = g.getSuffix(pref2);
-    cout << ((suf2 == "see") || (suf2 == "be"));
+    std::string suf2 = g.getSuffix(pref2);
+    EXPECT_TRUE((suf2 == "see") || (suf2 == "be"));
 }
 
 TEST(Task5, TestSize) {
     int NPREF = 2;
     Textgen g = Textgen(NPREF, "Test1.txt");
-    string text = g.Gentext(8);
+    std::string text = g.Gentext(8);
     EXPECT_TRUE((text == "Hello, world, I am glad to see you!") ||
                 (text == "Hello, world, I am a part of you!") ||
                 (text == "Hello, world, I am thinking of you! I") ||
