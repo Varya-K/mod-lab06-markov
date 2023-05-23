@@ -6,7 +6,7 @@
 #include <map>
 #include <fstream>
 
-
+typedef std::deque<std::string> prefix;
 class Textgen {
  public:
     Textgen(int prefix_size, std::string file_name);
