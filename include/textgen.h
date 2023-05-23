@@ -1,3 +1,4 @@
+// Copyright 2022 UNN-IASR
 #pragma once
 #include <string>
 #include <deque>
@@ -5,19 +6,16 @@
 #include <map>
 #include <fstream>
 
-using namespace std;
 
-class Textgen
-{
-public:
-    typedef deque<string> prefix;
-    Textgen(int prefix_size, string file_name);
-    string getSuffix(prefix pref);
-    string Gentext(int count_of_words);
-    map<prefix, vector<string>> GetStateTab();
+class Textgen {
+ public:
+    Textgen(int prefix_size, std::string file_name);
+    std::string getSuffix(prefix pref);
+    std::string Gentext(int count_of_words);
+    std::map<prefix, std::vector<std::string>> GetStateTab();
 
-private:
-    map<prefix, vector<string>> statetab;
+ private:
+    std::map<prefix, std::vector<std::string>> statetab;
     int npref;
     prefix first_prefix;
 };
