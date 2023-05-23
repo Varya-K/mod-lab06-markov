@@ -48,14 +48,15 @@ Textgen::Textgen(int prefix_size, std::string file_name)
     }
     suff = text.substr(first_index, text.length() - first_index);
     statetab[pref].push_back(suff);
-};
+}
 
 std::string Textgen::getSuffix(prefix pref) {
-    if (statetab.find(pref) == statetab.end()) return "";
-    else {
+    if (statetab.find(pref) == statetab.end()) {
+        return ""; 
+    } else {
         return statetab[pref][rand() % (statetab[pref].size())];
     }
-};
+}
 
 std::string Textgen::Gentext(int count_of_words) {
     prefix pref = first_prefix;
@@ -72,9 +73,9 @@ std::string Textgen::Gentext(int count_of_words) {
         pref.push_back(suff);
     }
     return result;
-};
+}
 
 
 std::map<prefix, std::vector<std::string>> Textgen::GetStateTab() {
     return statetab;
-};
+}
