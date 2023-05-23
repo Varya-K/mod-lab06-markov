@@ -63,7 +63,7 @@ std::string Textgen::Gentext(int count_of_words) {
     std::string result = "";
     for (int i = 0; i < pref.size(); i++) {
         if (i == pref.size() - 1) {
-            result += pref[i]; 
+            result += pref[i];
         } else {
             result += pref[i] + " ";
         }
