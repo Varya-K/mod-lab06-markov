@@ -1,7 +1,7 @@
 // Copyright 2022 UNN-IASR
 #include "textgen.h"
 
-Textgen::Textgen(int prefix_size, std::string file_name) 
+Textgen::Textgen(int prefix_size, std::string file_name)
     : npref(prefix_size) {
     std::ifstream file(file_name);
     setlocale(LC_ALL, "Russian");
@@ -52,7 +52,7 @@ Textgen::Textgen(int prefix_size, std::string file_name)
 
 std::string Textgen::getSuffix(prefix pref) {
     if (statetab.find(pref) == statetab.end()) {
-        return ""; 
+        return "";
     } else {
         return statetab[pref][rand() % (statetab[pref].size())];
     }
@@ -62,8 +62,11 @@ std::string Textgen::Gentext(int count_of_words) {
     prefix pref = first_prefix;
     std::string result = "";
     for (int i = 0; i < pref.size(); i++) {
-        if (i == pref.size() - 1) result += pref[i]; else 
+        if (i == pref.size() - 1) {
+            result += pref[i]; 
+        } else {
             result += pref[i] + " ";
+        }
     }
     for (int i = 0; i < count_of_words - npref; i++) {
         std::string suff = getSuffix(pref);
